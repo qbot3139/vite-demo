@@ -1,6 +1,6 @@
 import './style.css'
 
-// Smooth scrolling for navigation links
+// Smooth scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
@@ -14,9 +14,25 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// Add some subtle animations on scroll
+// Sticky header effect
+let lastScroll = 0;
+const header = document.querySelector('.main-header');
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  
+  if (currentScroll > 100) {
+    header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+  } else {
+    header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+  }
+  
+  lastScroll = currentScroll;
+});
+
+// Intersection Observer for animations
 const observerOptions = {
-  threshold: 0.1,
+  threshold: 0.15,
   rootMargin: '0px 0px -50px 0px'
 };
 
@@ -29,10 +45,10 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 
-// Observe all cards and news items
-document.querySelectorAll('.card, .news-item, .link-card, .support-card').forEach(el => {
+// Observe elements
+document.querySelectorAll('.service-card, .news-card, .quick-link-card, .covid-card').forEach(el => {
   el.style.opacity = '0';
-  el.style.transform = 'translateY(20px)';
-  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  el.style.transform = 'translateY(30px)';
+  el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
   observer.observe(el);
 });
